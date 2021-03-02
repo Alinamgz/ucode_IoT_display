@@ -9,3 +9,9 @@ RemoteSystemsTempFiles/**/*
 .metadata/**/*
 dvt/**/*
 
+**/*/Debug/**/*
+**/*/Releaise/**/*
+**/*/.xdhelp
+**/*/.config/**/*
+**/*/.launches/**/*
+
