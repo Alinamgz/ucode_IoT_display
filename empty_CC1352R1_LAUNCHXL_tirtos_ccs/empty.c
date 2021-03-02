@@ -38,6 +38,8 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <time.h>
+#include <stdlib.h>
 
 /* Driver Header files */
 #include <ti/drivers/GPIO.h>
@@ -55,7 +57,7 @@
 void *mainThread(void *arg0)
 {
     /* 1 second delay */
-    uint32_t time = 1;
+    uint32_t delay = 1;
 
     /* Call driver init functions */
     GPIO_init();
@@ -70,8 +72,10 @@ void *mainThread(void *arg0)
     /* Turn on user LED */
     GPIO_write(CONFIG_GPIO_LED_0, CONFIG_GPIO_LED_ON);
 
+    srand(time(NULL));
     while (1) {
-        sleep(time);
+        delay = rand() % 10 + 1;
+        sleep(delay);
         GPIO_toggle(CONFIG_GPIO_LED_0);
     }
 }
