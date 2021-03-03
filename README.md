@@ -29,7 +29,7 @@
    - ... press Run -> Load -> [project_name]
    </br>
    </br>
-   ![Screenshot](screenshot.png)
+   ![Screenshot](https://user-images.githubusercontent.com/54025456/109845882-43b68980-7c56-11eb-97dd-72f7ce694c9f.png)
    </br>
 
    #### OR
