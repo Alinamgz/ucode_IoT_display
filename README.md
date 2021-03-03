@@ -29,7 +29,7 @@
    - ... press Run -> Load -> [project_name]
    </br>
    </br>
-   ![Screenshot](readme_img/screenshot.png)
+   ![Screenshot](https://github.com/Alinamgz/ucode_IoT_blinking/blob/main/readme_img/screenshot.png)
    </br>
    #### OR
    - Open <b>UniFlash</b> and follow [this video guide](https://www.youtube.com/watch?v=V3-xcRmu5S0&t=51s) for device autodetect, and [this guide](http://software-dl.ti.com/ccs/esd/uniflash/docs/v5_0/quick_start_guide/uniflash_quick_start_guide.html) to flash the device.
