@@ -29,7 +29,7 @@
    - ... press Run -> Load -> [project_name]
    </br>
    </br>
-   ![Screenshot](https://github.com/Alinamgz/ucode_IoT_blinking/blob/main/readme_img/screenshot.png?raw=true)
+   ![Screenshot] (https://github.com/Alinamgz/ucode_IoT_blinking/blob/main/readme_img/screenshot.png?raw=true)
 
    </br>
    
