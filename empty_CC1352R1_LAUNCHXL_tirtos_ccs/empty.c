@@ -43,6 +43,9 @@
 
 /* Driver Header files */
 #include <ti/drivers/GPIO.h>
+#include <ti/drivers/TRNG.h>
+#include <ti/drivers/cryptoutils/cryptokey/CryptoKeyPlaintext.h>
+
 // #include <ti/drivers/I2C.h>
 // #include <ti/drivers/SPI.h>
 // #include <ti/drivers/UART.h>
@@ -51,20 +54,36 @@
 /* Driver configuration */
 #include "ti_drivers_config.h"
 
+
+#define KEY_LENGTH_BYTES 16
+
 /*
  *  ======== mainThread ========
  */
 void *mainThread(void *arg0)
 {
     /* 1 second delay */
-    uint32_t delay = 1;
+    int32_t delay = 1;
+    int i = 0;
+
+    TRNG_Handle trng_handle;
+    int_fast16_t rslt = 0;
+    CryptoKey entropy_key;
+    uint8_t entropy_buf[KEY_LENGTH_BYTES];
+
 
     /* Call driver init functions */
     GPIO_init();
+    TRNG_init();
     // I2C_init();
     // SPI_init();
     // UART_init();
     // Watchdog_init();
+
+//  True random number generator
+    trng_handle = TRNG_open(0, NULL);
+    CryptoKeyPlaintext_initBlankKey(&entropy_key, entropy_buf, KEY_LENGTH_BYTES);
+    TRNG_generateEntropy(trng_handle, &entropy_key);
 
     /* Configure the LED pin */
     GPIO_setConfig(CONFIG_GPIO_LED_0, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
@@ -72,7 +91,13 @@ void *mainThread(void *arg0)
     /* Turn on user LED */
     GPIO_write(CONFIG_GPIO_LED_0, CONFIG_GPIO_LED_ON);
 
-    srand(time(NULL));
+    for (i = 0; i < KEY_LENGTH_BYTES; i++) {
+        rslt += entropy_buf[i];
+    }
+
+    srand(rslt);
+    TRNG_close(trng_handle);
+
     while (1) {
         delay = rand() % 10 + 1;
         sleep(delay);
