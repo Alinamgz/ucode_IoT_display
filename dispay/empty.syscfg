@@ -32,6 +32,7 @@ Display1.lcdSS.pinInstance.$name     = "CONFIG_PIN_3";
 
 Display2.$name                    = "CONFIG_Display_UART";
 Display2.$hardware                = system.deviceData.board.components.XDS110UART;
+Display2.enableANSI               = true;
 Display2.uart.$name               = "CONFIG_UART_0";
 Display2.uart.txPinInstance.$name = "CONFIG_PIN_7";
 Display2.uart.rxPinInstance.$name = "CONFIG_PIN_8";
@@ -61,7 +62,7 @@ TRNG1.$name = "CONFIG_TRNG_0";
 Display1.lcdEnable.gpioPin.$suggestSolution = "boosterpack.5";
 Display1.lcdPower.gpioPin.$suggestSolution  = "boosterpack.2";
 Display1.lcdSS.gpioPin.$suggestSolution     = "boosterpack.6";
-Display2.uart.uart.$suggestSolution         = "UART0";
+Display2.uart.uart.$suggestSolution         = "UART1";
 Display2.uart.uart.txPin.$suggestSolution   = "boosterpack.4";
 Display2.uart.uart.rxPin.$suggestSolution   = "boosterpack.3";
 GPIO1.gpioPin.$suggestSolution              = "boosterpack.40";

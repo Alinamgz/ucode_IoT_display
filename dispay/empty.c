@@ -64,8 +64,11 @@
 void *mainThread(void *arg0)
 {
     /* 1 second delay */
-    int32_t delay = 1;
+    int_fast16_t rslt = 0;
     int i = 0;
+    unsigned count = 0;
+    unsigned led_value;
+    int32_t delay = 1;
 
     TRNG_Handle trng_handle;
 
@@ -73,9 +76,6 @@ void *mainThread(void *arg0)
     Display_Handle uart_handle;
     Display_Params display_params;
 
-    int_fast16_t rslt = 0;
-    unsigned count = 0;
-    unsigned led_value;
     char *led_ON = "On";
     char *led_OFF = "OFF";
     uint8_t entropy_buf[KEY_LENGTH_BYTES];
@@ -106,10 +106,10 @@ void *mainThread(void *arg0)
         Display_printf(lcd_handle, 5, 5, "Hello LCD!");
     }
     if(uart_handle) {
-        Display_printf(uart_handle, 1, 1, "Hello UART!");
+        Display_printf(uart_handle, 0, 0, "Hello UART!");
     }
 
-    if (Display_getType(uart_handle) && Display_Type_ANSI) {
+    if (Display_getType(uart_handle) & Display_Type_ANSI) {
         led_ON = ANSI_COLOR(FG_GREEN, ATTR_BOLD) "On" ANSI_COLOR(ATTR_RESET);
         led_OFF = ANSI_COLOR(FG_RED, ATTR_UNDERLINE) "Off" ANSI_COLOR(ATTR_RESET);
     }
@@ -132,41 +132,32 @@ void *mainThread(void *arg0)
 
     srand(rslt);
     TRNG_close(trng_handle);
+
+//-------------------------------------------------------------------------------------
     sleep(3);
     Display_clear(lcd_handle);
-//-------------------------------------------------------------------------------------
+
     while (1) {
         led_value = GPIO_read(CONFIG_GPIO_LED_0);
 
 //      Print to lcd
-//        Display_clearLine(lcd_handle, led_value);
-//        Display_printf(lcd_handle, !led_value, 0, "LED: %s", (led_value == CONFIG_GPIO_LED_ON) ? "On!" : "Off!");
-//
-////      Print to uart
-//        Display_clearLine(uart_handle, led_value);
-//        Display_printf(uart_handle, !led_value, 0, "LED: %s", (led_value == CONFIG_GPIO_LED_ON ? led_ON : led_OFF));
+       Display_printf(lcd_handle, 0, 0, "LED: %s", (led_value == CONFIG_GPIO_LED_ON) ? "On!" : "Off!");
 
+//      Print to uart
+       Display_printf(uart_handle, 0, 0, "LED: %s", (led_value == CONFIG_GPIO_LED_ON) ? led_ON : led_OFF);
 
-//        ledPinValue = GPIO_read(CONFIG_GPIO_LED_0);
-
-          /* Print to LCD and clear alternate lines if the LED is on or not. */
-          Display_clearLine(lcd_handle, led_value ? 1 : 0);
-          Display_printf(lcd_handle, led_value ? 0 : 1, 0, "LED: %s",
-                  (led_value == CONFIG_GPIO_LED_ON) ? "On!":"Off!");
-
-          /* Print to UART */
-          Display_clearLine(uart_handle, led_value ? 1 : 0);
-          Display_printf(uart_handle, led_value ? 0 : 1, 0, "LED: %s",
-                  (led_value == CONFIG_GPIO_LED_ON) ? led_ON : led_OFF);
-
-
-        if (Display_getType(uart_handle) && Display_Type_ANSI) {
-            char *currLedState = (led_value == CONFIG_GPIO_LED_ON) ? led_ON : led_OFF;
-            Display_printf(uart_handle, DisplayUart_SCROLLING, 0, "[ %d ] LED: %s", count++, currLedState);
+        if (Display_getType(uart_handle) & Display_Type_ANSI) {
+           Display_printf(uart_handle,
+                          DisplayUart_SCROLLING,
+                          0,
+                          "[ %d ] LED: %s",
+                          count++,
+                          (led_value == CONFIG_GPIO_LED_ON) ? led_ON : led_OFF);
         }
 
         delay = rand() % 10 + 1;
         sleep(delay);
         GPIO_toggle(CONFIG_GPIO_LED_0);
     }
+
 }
