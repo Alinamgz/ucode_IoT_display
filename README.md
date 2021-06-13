@@ -1,5 +1,5 @@
 # &ensp;Blinking
-<b> &ensp; Display</b> is an app that will turn a built-in LED on/off at random intervals for a random time from 1 to 10 seconds, check if LED is on\off and write this information to LED display via SPI and to terminal via UART
+<b> &ensp; Display</b> is an app that will turn a built-in LED on/off at random intervals for a random time from 1 to 10 seconds, check if LED is on\off and write this information to LCD display via SPI and to terminal via UART
 
 ## &ensp; Big idea
 &ensp; To get aquainted with Visual display of information.
