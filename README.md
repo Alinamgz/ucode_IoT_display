@@ -1,8 +1,8 @@
 # &ensp;Blinking
-<b> &ensp; Blinking</b> is an app that will turn a built-in LED on/off at random intervals for a random time from 1 to 10 seconds.
+<b> &ensp; Display</b> is an app that will turn a built-in LED on/off at random intervals for a random time from 1 to 10 seconds, check if LED is on\off and write this information to LED display via SPI and to terminal via UART
 
 ## &ensp; Big idea
-&ensp; To get aquainted with equipment and work environment, we're gonna use during this cursus
+&ensp; To get aquainted with Visual display of information.
 
 ## &ensp; How to run this project?
 
@@ -10,6 +10,7 @@
 
 <b> &ensp; Hardware </b>
  - [Board LAUNCHXL-CC1352R1](https://www.ti.com/tool/LAUNCHXL-CC1352R1#description)
+ - [BOOSTXL-SHARP128](https://eu.mouser.com/ProductDetail/Texas-Instruments/BOOSTXL-SHARP128?qs=%2Fha2pyFadug8sNeLPgOgUbT8Nroh4KdKeWSaoSbPhddXVE9nbby%2F%252BQ%3D%3D)
  - Micro USB cable
 
 <b> &ensp; Software </b>
